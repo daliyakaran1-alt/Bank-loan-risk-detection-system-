@@ -1,0 +1,148 @@
+{% extends "dashboard/layout.html" %}
+
+{% block page_title %}Compare Customers{% endblock %}
+
+{% block dashboard_content %}
+<div class="space-y-6 animate__animated animate__fadeIn">
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+        <h2 class="text-2xl font-bold text-slate-800">Customer Comparative Analytics</h2>
+        <p class="text-slate-500 mt-1">Run two applicant profiles side-by-side to evaluate comparative risk exposure.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Customer A Form -->
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+            <h3 class="text-lg font-bold text-brand-blue mb-4 pb-2 border-b flex items-center">
+                <span class="h-3 w-3 rounded-full bg-brand-blue mr-2"></span>Applicant A
+            </h3>
+            <div class="space-y-3">
+                <input type="number" id="incomeA" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm" placeholder="Income (₹)" value="200000">
+                <input type="number" id="ageA" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm" placeholder="Age" value="35">
+                <input type="number" id="loanA" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm" placeholder="Loan Amount (₹)" value="600000">
+                <input type="number" id="creditA" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm" placeholder="Credit Score" value="720">
+                <input type="number" id="empA" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm" placeholder="Employment (Years)" value="8">
+                <select id="genderA" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm">
+                    <option value="M">Male</option><option value="F">Female</option>
+                </select>
+                <select id="realtyA" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm">
+                    <option value="Y">Owns Real Estate</option><option value="N">No Real Estate</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Customer B Form -->
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+            <h3 class="text-lg font-bold text-purple-600 mb-4 pb-2 border-b flex items-center">
+                <span class="h-3 w-3 rounded-full bg-purple-500 mr-2"></span>Applicant B
+            </h3>
+            <div class="space-y-3">
+                <input type="number" id="incomeB" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm" placeholder="Income (₹)" value="40000">
+                <input type="number" id="ageB" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm" placeholder="Age" value="22">
+                <input type="number" id="loanB" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm" placeholder="Loan Amount (₹)" value="800000">
+                <input type="number" id="creditB" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm" placeholder="Credit Score" value="420">
+                <input type="number" id="empB" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm" placeholder="Employment (Years)" value="1">
+                <select id="genderB" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm">
+                    <option value="F">Female</option><option value="M">Male</option>
+                </select>
+                <select id="realtyB" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm">
+                    <option value="N">No Real Estate</option><option value="Y">Owns Real Estate</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    
+    <button id="compareBtn" class="w-full bg-slate-800 text-white py-3 px-4 rounded-xl font-bold hover:bg-slate-700 transition-colors shadow-md flex items-center justify-center">
+        <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" /></svg>
+        Run Comparative Analysis
+    </button>
+
+    <!-- Results -->
+    <div id="compareResults" class="hidden bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden animate__animated animate__fadeInUp">
+        <table class="min-w-full divide-y divide-slate-200">
+            <thead class="bg-slate-50">
+                <tr>
+                    <th class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase">Attribute</th>
+                    <th class="px-6 py-4 text-left text-xs font-bold text-brand-blue uppercase">Applicant A</th>
+                    <th class="px-6 py-4 text-left text-xs font-bold text-purple-600 uppercase">Applicant B</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-slate-100">
+                <tr><td class="px-6 py-3 text-sm font-medium text-slate-900">Income</td><td class="px-6 py-3 text-sm" id="resIncA"></td><td class="px-6 py-3 text-sm" id="resIncB"></td></tr>
+                <tr><td class="px-6 py-3 text-sm font-medium text-slate-900">Credit Score</td><td class="px-6 py-3 text-sm" id="resCredA"></td><td class="px-6 py-3 text-sm" id="resCredB"></td></tr>
+                <tr><td class="px-6 py-3 text-sm font-medium text-slate-900">Loan Amount</td><td class="px-6 py-3 text-sm" id="resLoanA"></td><td class="px-6 py-3 text-sm" id="resLoanB"></td></tr>
+                <tr class="bg-slate-50"><td class="px-6 py-3 text-sm font-bold text-slate-900">Risk Level</td><td class="px-6 py-3 text-sm font-bold" id="resRiskA"></td><td class="px-6 py-3 text-sm font-bold" id="resRiskB"></td></tr>
+                <tr><td class="px-6 py-3 text-sm font-bold text-slate-900">Default Probability</td><td class="px-6 py-3 text-sm font-bold" id="resProbA"></td><td class="px-6 py-3 text-sm font-bold" id="resProbB"></td></tr>
+                <tr class="bg-slate-50"><td class="px-6 py-3 text-sm font-bold text-slate-900">Recommendation</td><td class="px-6 py-3 text-sm font-bold" id="resRecA"></td><td class="px-6 py-3 text-sm font-bold" id="resRecB"></td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+document.getElementById('compareBtn').addEventListener('click', function() {
+    const btn = this;
+    btn.innerHTML = '<svg class="animate-spin h-5 w-5 mr-3 text-white" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Processing...';
+    
+    const data = {
+        customer_a: {
+            income: document.getElementById('incomeA').value,
+            age: document.getElementById('ageA').value,
+            loan_amount: document.getElementById('loanA').value,
+            credit_score: document.getElementById('creditA').value,
+            employment_years: document.getElementById('empA').value,
+            gender: document.getElementById('genderA').value,
+            owns_realty: document.getElementById('realtyA').value,
+            children: 0, family_status: 'Married', housing_type: 'House / apartment',
+            owns_car: 'Y', education: 'Higher education'
+        },
+        customer_b: {
+            income: document.getElementById('incomeB').value,
+            age: document.getElementById('ageB').value,
+            loan_amount: document.getElementById('loanB').value,
+            credit_score: document.getElementById('creditB').value,
+            employment_years: document.getElementById('empB').value,
+            gender: document.getElementById('genderB').value,
+            owns_realty: document.getElementById('realtyB').value,
+            children: 0, family_status: 'Single / not married', housing_type: 'Rented apartment',
+            owns_car: 'N', education: 'Secondary / secondary special'
+        }
+    };
+
+    fetch('/api/compare', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(res => {
+        btn.innerHTML = '<svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" /></svg> Run Comparative Analysis';
+        
+        document.getElementById('compareResults').classList.remove('hidden');
+        
+        function colorRisk(el, level) {
+            if(level === 'HIGH') el.className = 'px-6 py-3 text-sm font-bold text-red-600';
+            else if(level === 'MEDIUM') el.className = 'px-6 py-3 text-sm font-bold text-yellow-600';
+            else el.className = 'px-6 py-3 text-sm font-bold text-green-600';
+        }
+        
+        document.getElementById('resIncA').innerText = '₹' + parseInt(data.customer_a.income).toLocaleString();
+        document.getElementById('resCredA').innerText = data.customer_a.credit_score;
+        document.getElementById('resLoanA').innerText = '₹' + parseInt(data.customer_a.loan_amount).toLocaleString();
+        document.getElementById('resRiskA').innerText = res.customer_a_result.risk_level;
+        document.getElementById('resProbA').innerText = res.customer_a_result.risk_score + '%';
+        document.getElementById('resRecA').innerText = res.customer_a_result.recommendation;
+        colorRisk(document.getElementById('resRiskA'), res.customer_a_result.risk_level);
+        colorRisk(document.getElementById('resProbA'), res.customer_a_result.risk_level);
+        
+        document.getElementById('resIncB').innerText = '₹' + parseInt(data.customer_b.income).toLocaleString();
+        document.getElementById('resCredB').innerText = data.customer_b.credit_score;
+        document.getElementById('resLoanB').innerText = '₹' + parseInt(data.customer_b.loan_amount).toLocaleString();
+        document.getElementById('resRiskB').innerText = res.customer_b_result.risk_level;
+        document.getElementById('resProbB').innerText = res.customer_b_result.risk_score + '%';
+        document.getElementById('resRecB').innerText = res.customer_b_result.recommendation;
+        colorRisk(document.getElementById('resRiskB'), res.customer_b_result.risk_level);
+        colorRisk(document.getElementById('resProbB'), res.customer_b_result.risk_level);
+    });
+});
+</script>
+{% endblock %}

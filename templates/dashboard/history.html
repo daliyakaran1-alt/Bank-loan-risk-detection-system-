@@ -1,0 +1,228 @@
+{% extends "dashboard/layout.html" %}
+
+{% block page_title %}Application History{% endblock %}
+
+{% block dashboard_content %}
+<div class="space-y-6 animate__animated animate__fadeIn relative">
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+            <h2 class="text-2xl font-bold text-slate-800">Application History Log</h2>
+            <p class="text-slate-500 mt-1">All processed loan applications with their risk assessment results.</p>
+        </div>
+        <!-- Time Filters -->
+        <div class="flex items-center space-x-2" id="filterButtons">
+            <button onclick="loadHistory(7)" class="filter-btn px-4 py-2 rounded-lg text-sm font-semibold border border-slate-200 text-slate-600 hover:bg-brand-blue hover:text-white hover:border-brand-blue transition-colors">1 Week</button>
+            <button onclick="loadHistory(30)" class="filter-btn px-4 py-2 rounded-lg text-sm font-semibold border border-slate-200 text-slate-600 hover:bg-brand-blue hover:text-white hover:border-brand-blue transition-colors">1 Month</button>
+            <button onclick="loadHistory(180)" class="filter-btn px-4 py-2 rounded-lg text-sm font-semibold border border-slate-200 text-slate-600 hover:bg-brand-blue hover:text-white hover:border-brand-blue transition-colors">6 Months</button>
+            <button onclick="loadHistory(365)" class="filter-btn px-4 py-2 rounded-lg text-sm font-semibold border border-slate-200 text-slate-600 hover:bg-brand-blue hover:text-white hover:border-brand-blue transition-colors">1 Year</button>
+            <button onclick="loadHistory(null)" class="filter-btn active px-4 py-2 rounded-lg text-sm font-semibold bg-brand-blue text-white border border-brand-blue transition-colors">All Time</button>
+        </div>
+    </div>
+
+    <!-- Stats Row -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="historyStats">
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 text-center">
+            <p class="text-xs font-bold text-slate-400 uppercase">Total Applications</p>
+            <p id="statTotal" class="text-2xl font-black text-slate-800 mt-1">--</p>
+        </div>
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 text-center">
+            <p class="text-xs font-bold text-emerald-500 uppercase">Approved</p>
+            <p id="statApproved" class="text-2xl font-black text-emerald-600 mt-1">--</p>
+        </div>
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 text-center">
+            <p class="text-xs font-bold text-yellow-500 uppercase">Manual Review</p>
+            <p id="statReview" class="text-2xl font-black text-yellow-600 mt-1">--</p>
+        </div>
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 text-center">
+            <p class="text-xs font-bold text-red-500 uppercase">Rejected</p>
+            <p id="statRejected" class="text-2xl font-black text-red-600 mt-1">--</p>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-slate-200">
+                <thead class="bg-slate-50">
+                    <tr>
+                        <th class="px-4 py-3 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">#</th>
+                        <th class="px-4 py-3 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Applicant</th>
+                        <th class="px-4 py-3 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Age</th>
+                        <th class="px-4 py-3 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Gender</th>
+                        <th class="px-4 py-3 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Income</th>
+                        <th class="px-4 py-3 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Loan Amt</th>
+                        <th class="px-4 py-3 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Score</th>
+                        <th class="px-4 py-3 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Risk %</th>
+                        <th class="px-4 py-3 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Decision</th>
+                        <th class="px-4 py-3 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Date</th>
+                    </tr>
+                </thead>
+                <tbody id="historyBody" class="bg-white divide-y divide-slate-100">
+                    <tr><td colspan="10" class="px-4 py-8 text-center text-slate-400">Loading...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Applicant Details -->
+<div id="applicantModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900 bg-opacity-50 transition-opacity">
+    <div class="bg-white p-8 rounded-2xl shadow-xl border border-slate-100 w-full max-w-2xl mx-4 transform transition-transform scale-95" id="modalContent">
+        <div class="flex justify-between items-center border-b pb-4 mb-6">
+            <h3 class="text-2xl font-bold text-slate-800" id="modalName">Applicant Assessment</h3>
+            <span id="modalBadge" class="px-4 py-1 rounded-full text-sm font-bold"></span>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-6 mb-8">
+            <div class="bg-slate-50 p-5 rounded-xl border border-slate-100 text-center">
+                <p class="text-slate-500 text-xs font-bold uppercase mb-2">Default Probability</p>
+                <p id="modalProb" class="text-4xl font-black text-slate-800">--%</p>
+            </div>
+            <div class="bg-slate-50 p-5 rounded-xl border border-slate-100 text-center">
+                <p class="text-slate-500 text-xs font-bold uppercase mb-2">Final Recommendation</p>
+                <p id="modalRec" class="text-xl font-bold text-slate-800 mt-2">--</p>
+            </div>
+        </div>
+
+        <div class="mb-6">
+            <h4 class="text-md font-bold text-slate-700 mb-3 flex items-center">
+                <svg class="h-5 w-5 mr-2 text-brand-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                Why? (Explainable AI)
+            </h4>
+            <ul id="modalReasons" class="space-y-2 text-sm text-slate-600 bg-blue-50 p-4 rounded-xl border border-blue-100 max-h-48 overflow-y-auto">
+            </ul>
+        </div>
+        
+        <button onclick="closeModal()" class="w-full bg-slate-800 text-white py-3 px-4 rounded-xl font-bold hover:bg-slate-700 transition-colors">
+            Close Report
+        </button>
+    </div>
+</div>
+
+<script>
+function loadHistory(days) {
+    // Update button styles
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('bg-brand-blue', 'text-white', 'border-brand-blue', 'active');
+        btn.classList.add('text-slate-600', 'border-slate-200');
+    });
+    event.target.classList.remove('text-slate-600', 'border-slate-200');
+    event.target.classList.add('bg-brand-blue', 'text-white', 'border-brand-blue', 'active');
+    
+    let url = '/api/history';
+    if (days) url += '?days=' + days;
+    
+    fetch(url)
+        .then(res => res.json())
+        .then(data => {
+            const body = document.getElementById('historyBody');
+            
+            // Update stats
+            const approved = data.filter(d => d.recommendation === 'Approve Loan').length;
+            const rejected = data.filter(d => d.recommendation === 'Reject Loan').length;
+            const review = data.length - approved - rejected;
+            document.getElementById('statTotal').innerText = data.length;
+            document.getElementById('statApproved').innerText = approved;
+            document.getElementById('statReview').innerText = review;
+            document.getElementById('statRejected').innerText = rejected;
+            
+            if (data.length === 0) {
+                body.innerHTML = '<tr><td colspan="10" class="px-4 py-8 text-center text-slate-400">No applications found for this period.</td></tr>';
+                return;
+            }
+            
+            let html = '';
+            data.forEach((a, i) => {
+                let riskClass = '';
+                let badgeClass = '';
+                if (a.risk_level === 'HIGH') {
+                    riskClass = 'text-red-600';
+                    badgeClass = 'bg-red-100 text-red-700';
+                } else if (a.risk_level === 'MEDIUM') {
+                    riskClass = 'text-yellow-600';
+                    badgeClass = 'bg-yellow-100 text-yellow-700';
+                } else {
+                    riskClass = 'text-green-600';
+                    badgeClass = 'bg-green-100 text-green-700';
+                }
+                
+                html += `
+                <tr class="hover:bg-slate-50 transition-colors cursor-pointer" onclick="openModal(${a.id})">
+                    <td class="px-4 py-3 text-sm text-slate-400 font-mono">${a.id}</td>
+                    <td class="px-4 py-3 text-sm font-semibold text-slate-800">${a.name}</td>
+                    <td class="px-4 py-3 text-sm text-slate-600">${a.age}</td>
+                    <td class="px-4 py-3 text-sm text-slate-600">${a.gender}</td>
+                    <td class="px-4 py-3 text-sm text-slate-600">${a.income}</td>
+                    <td class="px-4 py-3 text-sm text-slate-600">${a.loan_amount}</td>
+                    <td class="px-4 py-3 text-sm text-slate-600">${a.credit_score}</td>
+                    <td class="px-4 py-3 text-sm font-bold ${riskClass}">${a.risk_score}</td>
+                    <td class="px-4 py-3"><span class="px-2 py-1 rounded-full text-xs font-bold ${badgeClass}">${a.recommendation}</span></td>
+                    <td class="px-4 py-3 text-xs text-slate-400">${a.date}</td>
+                </tr>`;
+            });
+            body.innerHTML = html;
+        });
+}
+
+function openModal(id) {
+    fetch('/api/history/' + id)
+        .then(res => res.json())
+        .then(res => {
+            const modal = document.getElementById('applicantModal');
+            const content = document.getElementById('modalContent');
+            
+            document.getElementById('modalName').innerText = res.name + ' — Risk Assessment';
+            document.getElementById('modalProb').innerText = res.risk_score + '%';
+            document.getElementById('modalRec').innerText = res.recommendation;
+            
+            const badge = document.getElementById('modalBadge');
+            const prob = document.getElementById('modalProb');
+            if (res.risk_level === 'HIGH') {
+                badge.className = 'px-4 py-1 rounded-full text-sm font-bold bg-red-100 text-red-700';
+                prob.className = 'text-4xl font-black text-red-600';
+            } else if (res.risk_level === 'MEDIUM') {
+                badge.className = 'px-4 py-1 rounded-full text-sm font-bold bg-yellow-100 text-yellow-700';
+                prob.className = 'text-4xl font-black text-yellow-600';
+            } else {
+                badge.className = 'px-4 py-1 rounded-full text-sm font-bold bg-green-100 text-green-700';
+                prob.className = 'text-4xl font-black text-green-600';
+            }
+            badge.innerText = res.risk_level + ' RISK';
+            
+            const reasonsList = document.getElementById('modalReasons');
+            reasonsList.innerHTML = '';
+            res.reasons.forEach(reason => {
+                reasonsList.innerHTML += '<li class="flex items-start"><span class="mr-2 text-brand-blue font-bold">→</span> ' + reason + '</li>';
+            });
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                content.classList.remove('scale-95');
+                content.classList.add('scale-100');
+            }, 10);
+        });
+}
+
+function closeModal() {
+    const modal = document.getElementById('applicantModal');
+    const content = document.getElementById('modalContent');
+    content.classList.remove('scale-100');
+    content.classList.add('scale-95');
+    setTimeout(() => {
+        modal.classList.add('hidden');
+    }, 150);
+}
+
+// Close on outside click
+document.getElementById('applicantModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeModal();
+    }
+});
+
+// Load all on page load
+document.addEventListener('DOMContentLoaded', function() {
+    loadHistory(null);
+});
+</script>
+{% endblock %}

@@ -1,0 +1,314 @@
+Feature,Action,Reason
+FLAG_MOBIL,Dropped,Low Variance (<0.01)
+FLAG_CONT_MOBILE,Dropped,Low Variance (<0.01)
+APARTMENTS_AVG,Dropped,Low Variance (<0.01)
+BASEMENTAREA_AVG,Dropped,Low Variance (<0.01)
+YEARS_BUILD_AVG,Dropped,Low Variance (<0.01)
+COMMONAREA_AVG,Dropped,Low Variance (<0.01)
+ENTRANCES_AVG,Dropped,Low Variance (<0.01)
+FLOORSMIN_AVG,Dropped,Low Variance (<0.01)
+LANDAREA_AVG,Dropped,Low Variance (<0.01)
+LIVINGAPARTMENTS_AVG,Dropped,Low Variance (<0.01)
+LIVINGAREA_AVG,Dropped,Low Variance (<0.01)
+NONLIVINGAPARTMENTS_AVG,Dropped,Low Variance (<0.01)
+NONLIVINGAREA_AVG,Dropped,Low Variance (<0.01)
+APARTMENTS_MODE,Dropped,Low Variance (<0.01)
+BASEMENTAREA_MODE,Dropped,Low Variance (<0.01)
+YEARS_BUILD_MODE,Dropped,Low Variance (<0.01)
+COMMONAREA_MODE,Dropped,Low Variance (<0.01)
+ELEVATORS_MODE,Dropped,Low Variance (<0.01)
+ENTRANCES_MODE,Dropped,Low Variance (<0.01)
+FLOORSMIN_MODE,Dropped,Low Variance (<0.01)
+LANDAREA_MODE,Dropped,Low Variance (<0.01)
+LIVINGAPARTMENTS_MODE,Dropped,Low Variance (<0.01)
+LIVINGAREA_MODE,Dropped,Low Variance (<0.01)
+NONLIVINGAPARTMENTS_MODE,Dropped,Low Variance (<0.01)
+NONLIVINGAREA_MODE,Dropped,Low Variance (<0.01)
+APARTMENTS_MEDI,Dropped,Low Variance (<0.01)
+BASEMENTAREA_MEDI,Dropped,Low Variance (<0.01)
+YEARS_BUILD_MEDI,Dropped,Low Variance (<0.01)
+COMMONAREA_MEDI,Dropped,Low Variance (<0.01)
+ELEVATORS_MEDI,Dropped,Low Variance (<0.01)
+ENTRANCES_MEDI,Dropped,Low Variance (<0.01)
+FLOORSMIN_MEDI,Dropped,Low Variance (<0.01)
+LANDAREA_MEDI,Dropped,Low Variance (<0.01)
+LIVINGAPARTMENTS_MEDI,Dropped,Low Variance (<0.01)
+LIVINGAREA_MEDI,Dropped,Low Variance (<0.01)
+NONLIVINGAPARTMENTS_MEDI,Dropped,Low Variance (<0.01)
+NONLIVINGAREA_MEDI,Dropped,Low Variance (<0.01)
+FLAG_DOCUMENT_2,Dropped,Low Variance (<0.01)
+FLAG_DOCUMENT_4,Dropped,Low Variance (<0.01)
+FLAG_DOCUMENT_7,Dropped,Low Variance (<0.01)
+FLAG_DOCUMENT_9,Dropped,Low Variance (<0.01)
+FLAG_DOCUMENT_10,Dropped,Low Variance (<0.01)
+FLAG_DOCUMENT_11,Dropped,Low Variance (<0.01)
+FLAG_DOCUMENT_12,Dropped,Low Variance (<0.01)
+FLAG_DOCUMENT_13,Dropped,Low Variance (<0.01)
+FLAG_DOCUMENT_14,Dropped,Low Variance (<0.01)
+FLAG_DOCUMENT_15,Dropped,Low Variance (<0.01)
+FLAG_DOCUMENT_16,Dropped,Low Variance (<0.01)
+FLAG_DOCUMENT_17,Dropped,Low Variance (<0.01)
+FLAG_DOCUMENT_18,Dropped,Low Variance (<0.01)
+FLAG_DOCUMENT_19,Dropped,Low Variance (<0.01)
+FLAG_DOCUMENT_20,Dropped,Low Variance (<0.01)
+FLAG_DOCUMENT_21,Dropped,Low Variance (<0.01)
+AMT_REQ_CREDIT_BUREAU_HOUR,Dropped,Low Variance (<0.01)
+outlier_z_AMT_INCOME_TOTAL,Dropped,Low Variance (<0.01)
+outlier_z_AMT_ANNUITY,Dropped,Low Variance (<0.01)
+outlier_iqr_DAYS_BIRTH,Dropped,Low Variance (<0.01)
+outlier_z_DAYS_BIRTH,Dropped,Low Variance (<0.01)
+outlier_z_DAYS_EMPLOYED,Dropped,Low Variance (<0.01)
+outlier_iqr_DAYS_REGISTRATION,Dropped,Low Variance (<0.01)
+outlier_z_DAYS_REGISTRATION,Dropped,Low Variance (<0.01)
+outlier_iqr_DAYS_ID_PUBLISH,Dropped,Low Variance (<0.01)
+outlier_z_DAYS_ID_PUBLISH,Dropped,Low Variance (<0.01)
+outlier_z_REGION_RATING_CLIENT,Dropped,Low Variance (<0.01)
+outlier_z_REGION_RATING_CLIENT_W_CITY,Dropped,Low Variance (<0.01)
+outlier_iqr_HOUR_APPR_PROCESS_START,Dropped,Low Variance (<0.01)
+outlier_z_HOUR_APPR_PROCESS_START,Dropped,Low Variance (<0.01)
+outlier_z_EXT_SOURCE_1,Dropped,Low Variance (<0.01)
+outlier_iqr_EXT_SOURCE_2,Dropped,Low Variance (<0.01)
+outlier_z_EXT_SOURCE_2,Dropped,Low Variance (<0.01)
+outlier_z_EXT_SOURCE_3,Dropped,Low Variance (<0.01)
+outlier_z_YEARS_BEGINEXPLUATATION_AVG,Dropped,Low Variance (<0.01)
+outlier_z_NONLIVINGAPARTMENTS_AVG,Dropped,Low Variance (<0.01)
+outlier_z_YEARS_BEGINEXPLUATATION_MODE,Dropped,Low Variance (<0.01)
+outlier_z_NONLIVINGAPARTMENTS_MODE,Dropped,Low Variance (<0.01)
+outlier_z_YEARS_BEGINEXPLUATATION_MEDI,Dropped,Low Variance (<0.01)
+outlier_z_NONLIVINGAPARTMENTS_MEDI,Dropped,Low Variance (<0.01)
+outlier_iqr_DAYS_LAST_PHONE_CHANGE,Dropped,Low Variance (<0.01)
+outlier_z_DAYS_LAST_PHONE_CHANGE,Dropped,Low Variance (<0.01)
+outlier_iqr_AMT_REQ_CREDIT_BUREAU_HOUR,Dropped,Low Variance (<0.01)
+outlier_z_AMT_REQ_CREDIT_BUREAU_HOUR,Dropped,Low Variance (<0.01)
+outlier_iqr_AMT_REQ_CREDIT_BUREAU_DAY,Dropped,Low Variance (<0.01)
+outlier_z_AMT_REQ_CREDIT_BUREAU_DAY,Dropped,Low Variance (<0.01)
+outlier_z_AMT_REQ_CREDIT_BUREAU_QRT,Dropped,Low Variance (<0.01)
+CODE_GENDER_XNA,Dropped,Low Variance (<0.01)
+HOUSETYPE_MODE_specific housing,Dropped,Low Variance (<0.01)
+HOUSETYPE_MODE_terraced house,Dropped,Low Variance (<0.01)
+EMERGENCYSTATE_MODE_Yes,Dropped,Low Variance (<0.01)
+AMT_GOODS_PRICE,Dropped,Highly Correlated (>0.95)
+FLAG_EMP_PHONE,Dropped,Highly Correlated (>0.95)
+REGION_RATING_CLIENT_W_CITY,Dropped,Highly Correlated (>0.95)
+YEARS_BEGINEXPLUATATION_MODE,Dropped,Highly Correlated (>0.95)
+FLOORSMAX_MODE,Dropped,Highly Correlated (>0.95)
+YEARS_BEGINEXPLUATATION_MEDI,Dropped,Highly Correlated (>0.95)
+FLOORSMAX_MEDI,Dropped,Highly Correlated (>0.95)
+OBS_60_CNT_SOCIAL_CIRCLE,Dropped,Highly Correlated (>0.95)
+outlier_z_CNT_CHILDREN,Dropped,Highly Correlated (>0.95)
+outlier_z_REGION_POPULATION_RELATIVE,Dropped,Highly Correlated (>0.95)
+outlier_z_CNT_FAM_MEMBERS,Dropped,Highly Correlated (>0.95)
+outlier_iqr_REGION_RATING_CLIENT_W_CITY,Dropped,Highly Correlated (>0.95)
+outlier_iqr_BASEMENTAREA_MODE,Dropped,Highly Correlated (>0.95)
+outlier_iqr_YEARS_BUILD_MODE,Dropped,Highly Correlated (>0.95)
+outlier_iqr_COMMONAREA_MODE,Dropped,Highly Correlated (>0.95)
+outlier_iqr_ELEVATORS_MODE,Dropped,Highly Correlated (>0.95)
+outlier_iqr_ENTRANCES_MODE,Dropped,Highly Correlated (>0.95)
+outlier_z_ENTRANCES_MODE,Dropped,Highly Correlated (>0.95)
+outlier_iqr_FLOORSMAX_MODE,Dropped,Highly Correlated (>0.95)
+outlier_z_FLOORSMAX_MODE,Dropped,Highly Correlated (>0.95)
+outlier_iqr_FLOORSMIN_MODE,Dropped,Highly Correlated (>0.95)
+outlier_z_FLOORSMIN_MODE,Dropped,Highly Correlated (>0.95)
+outlier_iqr_LANDAREA_MODE,Dropped,Highly Correlated (>0.95)
+outlier_iqr_LIVINGAPARTMENTS_MODE,Dropped,Highly Correlated (>0.95)
+outlier_iqr_LIVINGAREA_MODE,Dropped,Highly Correlated (>0.95)
+outlier_iqr_NONLIVINGAREA_MODE,Dropped,Highly Correlated (>0.95)
+outlier_iqr_APARTMENTS_MEDI,Dropped,Highly Correlated (>0.95)
+outlier_z_APARTMENTS_MEDI,Dropped,Highly Correlated (>0.95)
+outlier_iqr_BASEMENTAREA_MEDI,Dropped,Highly Correlated (>0.95)
+outlier_z_BASEMENTAREA_MEDI,Dropped,Highly Correlated (>0.95)
+outlier_iqr_YEARS_BEGINEXPLUATATION_MEDI,Dropped,Highly Correlated (>0.95)
+outlier_iqr_YEARS_BUILD_MEDI,Dropped,Highly Correlated (>0.95)
+outlier_z_YEARS_BUILD_MEDI,Dropped,Highly Correlated (>0.95)
+outlier_iqr_COMMONAREA_MEDI,Dropped,Highly Correlated (>0.95)
+outlier_z_COMMONAREA_MEDI,Dropped,Highly Correlated (>0.95)
+outlier_iqr_ELEVATORS_MEDI,Dropped,Highly Correlated (>0.95)
+outlier_z_ELEVATORS_MEDI,Dropped,Highly Correlated (>0.95)
+outlier_iqr_ENTRANCES_MEDI,Dropped,Highly Correlated (>0.95)
+outlier_z_ENTRANCES_MEDI,Dropped,Highly Correlated (>0.95)
+outlier_iqr_FLOORSMAX_MEDI,Dropped,Highly Correlated (>0.95)
+outlier_z_FLOORSMAX_MEDI,Dropped,Highly Correlated (>0.95)
+outlier_iqr_FLOORSMIN_MEDI,Dropped,Highly Correlated (>0.95)
+outlier_z_FLOORSMIN_MEDI,Dropped,Highly Correlated (>0.95)
+outlier_iqr_LANDAREA_MEDI,Dropped,Highly Correlated (>0.95)
+outlier_z_LANDAREA_MEDI,Dropped,Highly Correlated (>0.95)
+outlier_iqr_LIVINGAPARTMENTS_MEDI,Dropped,Highly Correlated (>0.95)
+outlier_z_LIVINGAPARTMENTS_MEDI,Dropped,Highly Correlated (>0.95)
+outlier_iqr_LIVINGAREA_MEDI,Dropped,Highly Correlated (>0.95)
+outlier_z_LIVINGAREA_MEDI,Dropped,Highly Correlated (>0.95)
+outlier_iqr_NONLIVINGAPARTMENTS_MEDI,Dropped,Highly Correlated (>0.95)
+outlier_iqr_NONLIVINGAREA_MEDI,Dropped,Highly Correlated (>0.95)
+outlier_z_NONLIVINGAREA_MEDI,Dropped,Highly Correlated (>0.95)
+outlier_iqr_OBS_60_CNT_SOCIAL_CIRCLE,Dropped,Highly Correlated (>0.95)
+outlier_z_OBS_60_CNT_SOCIAL_CIRCLE,Dropped,Highly Correlated (>0.95)
+outlier_iqr_AMT_REQ_CREDIT_BUREAU_WEEK,Dropped,Highly Correlated (>0.95)
+outlier_z_AMT_REQ_CREDIT_BUREAU_WEEK,Dropped,Highly Correlated (>0.95)
+Credit_to_Income_Ratio,Dropped,Highly Correlated (>0.95)
+Income_per_Family_Member,Dropped,Highly Correlated (>0.95)
+Income_per_Child,Dropped,Highly Correlated (>0.95)
+Dependency_Ratio,Dropped,Highly Correlated (>0.95)
+Credit_Burden_Score,Dropped,Highly Correlated (>0.95)
+FLAG_OWN_CAR_Y,Dropped,Highly Correlated (>0.95)
+Children_Category_3+,Dropped,Highly Correlated (>0.95)
+Children_Category_None,Dropped,Highly Correlated (>0.95)
+Employment_Duration_Category_nan,Dropped,Highly Correlated (>0.95)
+Income_Risk_Level_Low Risk,Dropped,Highly Correlated (>0.95)
+EXT_SOURCE_2,Kept,Correlation with Target: 0.1603
+EXT_SOURCE_3,Kept,Correlation with Target: 0.1559
+EXT_SOURCE_1,Kept,Correlation with Target: 0.0989
+outlier_iqr_EXT_SOURCE_3,Kept,Correlation with Target: 0.0831
+DAYS_BIRTH,Kept,Correlation with Target: 0.0782
+NAME_INCOME_TYPE_FREQ,Kept,Correlation with Target: 0.0598
+outlier_iqr_DAYS_EMPLOYED,Kept,Correlation with Target: 0.0592
+REGION_RATING_CLIENT,Kept,Correlation with Target: 0.0589
+NAME_EDUCATION_TYPE_Higher education,Kept,Correlation with Target: 0.0566
+Employment_Duration_Category_<2y,Kept,Correlation with Target: 0.0564
+DAYS_LAST_PHONE_CHANGE,Kept,Correlation with Target: 0.0552
+CODE_GENDER_M,Kept,Correlation with Target: 0.0547
+Age_Group_50-65,Kept,Correlation with Target: 0.0540
+DAYS_ID_PUBLISH,Kept,Correlation with Target: 0.0515
+REG_CITY_NOT_WORK_CITY,Kept,Correlation with Target: 0.0510
+NAME_EDUCATION_TYPE_Secondary / secondary special,Kept,Correlation with Target: 0.0498
+Employment_Stability,Kept,Correlation with Target: 0.0474
+Employment_Duration_Category_>10y,Kept,Correlation with Target: 0.0472
+Financial_Stability_Index,Kept,Correlation with Target: 0.0472
+Loan_Risk_Level_Medium Exposure,Kept,Correlation with Target: 0.0458
+DAYS_EMPLOYED,Kept,Correlation with Target: 0.0449
+REG_CITY_NOT_LIVE_CITY,Kept,Correlation with Target: 0.0444
+FLAG_DOCUMENT_3,Kept,Correlation with Target: 0.0443
+DAYS_REGISTRATION,Kept,Correlation with Target: 0.0420
+outlier_iqr_ELEVATORS_AVG,Kept,Correlation with Target: 0.0410
+outlier_iqr_APARTMENTS_AVG,Kept,Correlation with Target: 0.0401
+outlier_iqr_LIVINGAREA_AVG,Kept,Correlation with Target: 0.0394
+FLOORSMAX_AVG,Kept,Correlation with Target: 0.0394
+outlier_iqr_NONLIVINGAREA_AVG,Kept,Correlation with Target: 0.0393
+High_Credit_Applicant,Kept,Correlation with Target: 0.0391
+outlier_iqr_APARTMENTS_MODE,Kept,Correlation with Target: 0.0383
+REGION_POPULATION_RELATIVE,Kept,Correlation with Target: 0.0372
+outlier_iqr_BASEMENTAREA_AVG,Kept,Correlation with Target: 0.0367
+outlier_iqr_YEARS_BEGINEXPLUATATION_MODE,Kept,Correlation with Target: 0.0366
+outlier_iqr_TOTALAREA_MODE,Kept,Correlation with Target: 0.0365
+outlier_iqr_YEARS_BEGINEXPLUATATION_AVG,Kept,Correlation with Target: 0.0359
+ELEVATORS_AVG,Kept,Correlation with Target: 0.0359
+Premium_Customer,Kept,Correlation with Target: 0.0339
+outlier_iqr_LANDAREA_AVG,Kept,Correlation with Target: 0.0332
+outlier_iqr_AMT_GOODS_PRICE,Kept,Correlation with Target: 0.0328
+LIVE_CITY_NOT_WORK_CITY,Kept,Correlation with Target: 0.0325
+DEF_30_CNT_SOCIAL_CIRCLE,Kept,Correlation with Target: 0.0324
+outlier_iqr_DEF_30_CNT_SOCIAL_CIRCLE,Kept,Correlation with Target: 0.0320
+Age_Group_<25,Kept,Correlation with Target: 0.0315
+outlier_iqr_ENTRANCES_AVG,Kept,Correlation with Target: 0.0315
+DEF_60_CNT_SOCIAL_CIRCLE,Kept,Correlation with Target: 0.0314
+NAME_CONTRACT_TYPE_Revolving loans,Kept,Correlation with Target: 0.0309
+outlier_iqr_DEF_60_CNT_SOCIAL_CIRCLE,Kept,Correlation with Target: 0.0308
+outlier_iqr_YEARS_BUILD_AVG,Kept,Correlation with Target: 0.0307
+AMT_CREDIT,Kept,Correlation with Target: 0.0304
+outlier_iqr_FLOORSMAX_AVG,Kept,Correlation with Target: 0.0303
+TOTALAREA_MODE,Kept,Correlation with Target: 0.0302
+outlier_iqr_LIVINGAPARTMENTS_AVG,Kept,Correlation with Target: 0.0290
+FLAG_DOCUMENT_6,Kept,Correlation with Target: 0.0286
+FLAG_WORK_PHONE,Kept,Correlation with Target: 0.0285
+NAME_HOUSING_TYPE_FREQ,Kept,Correlation with Target: 0.0284
+outlier_iqr_COMMONAREA_AVG,Kept,Correlation with Target: 0.0280
+Age_Group_>65,Kept,Correlation with Target: 0.0263
+outlier_iqr_FLOORSMIN_AVG,Kept,Correlation with Target: 0.0261
+outlier_iqr_REGION_POPULATION_RELATIVE,Kept,Correlation with Target: 0.0253
+HOUR_APPR_PROCESS_START,Kept,Correlation with Target: 0.0242
+FLAG_PHONE,Kept,Correlation with Target: 0.0238
+High_Income_Applicant,Kept,Correlation with Target: 0.0235
+Credit_per_Family_Member,Kept,Correlation with Target: 0.0235
+outlier_iqr_AMT_ANNUITY,Kept,Correlation with Target: 0.0230
+NAME_FAMILY_STATUS_FREQ,Kept,Correlation with Target: 0.0228
+outlier_iqr_AMT_CREDIT,Kept,Correlation with Target: 0.0215
+outlier_z_DEF_30_CNT_SOCIAL_CIRCLE,Kept,Correlation with Target: 0.0215
+outlier_iqr_OWN_CAR_AGE,Kept,Correlation with Target: 0.0208
+outlier_z_FLOORSMAX_AVG,Kept,Correlation with Target: 0.0204
+Asset_Ownership_Score,Kept,Correlation with Target: 0.0200
+Working_Age_Category,Kept,Correlation with Target: 0.0197
+outlier_z_DEF_60_CNT_SOCIAL_CIRCLE,Kept,Correlation with Target: 0.0192
+CNT_CHILDREN,Kept,Correlation with Target: 0.0192
+outlier_iqr_EXT_SOURCE_1,Kept,Correlation with Target: 0.0186
+outlier_iqr_NONLIVINGAPARTMENTS_AVG,Kept,Correlation with Target: 0.0183
+outlier_z_AMT_GOODS_PRICE,Kept,Correlation with Target: 0.0182
+outlier_iqr_AMT_INCOME_TOTAL,Kept,Correlation with Target: 0.0181
+outlier_z_ELEVATORS_AVG,Kept,Correlation with Target: 0.0178
+outlier_z_FLOORSMIN_AVG,Kept,Correlation with Target: 0.0174
+outlier_z_LIVINGAREA_AVG,Kept,Correlation with Target: 0.0160
+OWN_CAR_AGE,Kept,Correlation with Target: 0.0160
+outlier_iqr_NONLIVINGAPARTMENTS_MODE,Kept,Correlation with Target: 0.0159
+outlier_z_ELEVATORS_MODE,Kept,Correlation with Target: 0.0157
+outlier_z_LIVINGAREA_MODE,Kept,Correlation with Target: 0.0154
+FONDKAPREMONT_MODE_reg oper account,Kept,Correlation with Target: 0.0153
+Debt_Burden_Category_Severe,Kept,Correlation with Target: 0.0152
+outlier_z_AMT_CREDIT,Kept,Correlation with Target: 0.0151
+Owns_Both_House_And_Car,Kept,Correlation with Target: 0.0151
+outlier_z_TOTALAREA_MODE,Kept,Correlation with Target: 0.0150
+outlier_z_APARTMENTS_AVG,Kept,Correlation with Target: 0.0149
+AMT_REQ_CREDIT_BUREAU_MON,Kept,Correlation with Target: 0.0148
+outlier_iqr_AMT_REQ_CREDIT_BUREAU_QRT,Kept,Correlation with Target: 0.0146
+outlier_z_APARTMENTS_MODE,Kept,Correlation with Target: 0.0145
+Annuity_to_Income_Ratio,Kept,Correlation with Target: 0.0143
+Debt_Burden_Category_Low,Kept,Correlation with Target: 0.0142
+Employment_Duration_Category_5-10y,Kept,Correlation with Target: 0.0133
+outlier_z_AMT_REQ_CREDIT_BUREAU_MON,Kept,Correlation with Target: 0.0132
+outlier_z_LIVINGAPARTMENTS_AVG,Kept,Correlation with Target: 0.0132
+outlier_z_BASEMENTAREA_AVG,Kept,Correlation with Target: 0.0131
+WALLSMATERIAL_MODE_FREQ,Kept,Correlation with Target: 0.0130
+Owns_Car_Only,Kept,Correlation with Target: 0.0129
+AMT_ANNUITY,Kept,Correlation with Target: 0.0128
+outlier_z_LIVINGAPARTMENTS_MODE,Kept,Correlation with Target: 0.0127
+outlier_z_BASEMENTAREA_MODE,Kept,Correlation with Target: 0.0125
+outlier_z_NONLIVINGAREA_AVG,Kept,Correlation with Target: 0.0125
+outlier_z_NONLIVINGAREA_MODE,Kept,Correlation with Target: 0.0123
+Single_Income_Household,Kept,Correlation with Target: 0.0122
+AMT_REQ_CREDIT_BUREAU_YEAR,Kept,Correlation with Target: 0.0122
+NAME_EDUCATION_TYPE_Lower secondary,Kept,Correlation with Target: 0.0117
+outlier_z_COMMONAREA_AVG,Kept,Correlation with Target: 0.0115
+outlier_iqr_REGION_RATING_CLIENT,Kept,Correlation with Target: 0.0113
+FONDKAPREMONT_MODE_org spec account,Kept,Correlation with Target: 0.0113
+FONDKAPREMONT_MODE_reg oper spec account,Kept,Correlation with Target: 0.0113
+outlier_z_COMMONAREA_MODE,Kept,Correlation with Target: 0.0109
+outlier_iqr_AMT_REQ_CREDIT_BUREAU_MON,Kept,Correlation with Target: 0.0107
+Family_Size_Category_Small,Kept,Correlation with Target: 0.0106
+OBS_30_CNT_SOCIAL_CIRCLE,Kept,Correlation with Target: 0.0094
+outlier_z_LANDAREA_AVG,Kept,Correlation with Target: 0.0094
+CNT_FAM_MEMBERS,Kept,Correlation with Target: 0.0093
+outlier_z_ENTRANCES_AVG,Kept,Correlation with Target: 0.0093
+outlier_z_YEARS_BUILD_AVG,Kept,Correlation with Target: 0.0092
+outlier_z_LANDAREA_MODE,Kept,Correlation with Target: 0.0087
+outlier_iqr_CNT_CHILDREN,Kept,Correlation with Target: 0.0086
+Loan_Risk_Level_Low Exposure,Kept,Correlation with Target: 0.0086
+FLAG_DOCUMENT_8,Kept,Correlation with Target: 0.0080
+Family_Size_Category_Medium,Kept,Correlation with Target: 0.0078
+outlier_z_YEARS_BUILD_MODE,Kept,Correlation with Target: 0.0078
+outlier_iqr_CNT_FAM_MEMBERS,Kept,Correlation with Target: 0.0077
+Loan_to_Income_Ratio,Kept,Correlation with Target: 0.0077
+Income_Risk_Level_Medium-High,Kept,Correlation with Target: 0.0077
+outlier_iqr_OBS_30_CNT_SOCIAL_CIRCLE,Kept,Correlation with Target: 0.0074
+Income_Risk_Level_Medium-Low,Kept,Correlation with Target: 0.0071
+Owns_House_Only,Kept,Correlation with Target: 0.0071
+NAME_TYPE_SUITE_FREQ,Kept,Correlation with Target: 0.0070
+REG_REGION_NOT_WORK_REGION,Kept,Correlation with Target: 0.0069
+outlier_iqr_AMT_REQ_CREDIT_BUREAU_YEAR,Kept,Correlation with Target: 0.0069
+FLAG_OWN_REALTY_Y,Kept,Correlation with Target: 0.0061
+AMT_REQ_CREDIT_BUREAU_QRT,Kept,Correlation with Target: 0.0058
+Family_Size_Category_Single,Kept,Correlation with Target: 0.0057
+REG_REGION_NOT_LIVE_REGION,Kept,Correlation with Target: 0.0056
+outlier_z_AMT_REQ_CREDIT_BUREAU_YEAR,Kept,Correlation with Target: 0.0050
+YEARS_BEGINEXPLUATATION_AVG,Kept,Correlation with Target: 0.0047
+Debt_Burden_Category_Moderate,Kept,Correlation with Target: 0.0042
+AMT_INCOME_TOTAL,Kept,Correlation with Target: 0.0040
+outlier_z_OBS_30_CNT_SOCIAL_CIRCLE,Kept,Correlation with Target: 0.0040
+outlier_z_OWN_CAR_AGE,Kept,Correlation with Target: 0.0038
+Low_Income_Customer,Kept,Correlation with Target: 0.0031
+WEEKDAY_APPR_PROCESS_START_FREQ,Kept,Correlation with Target: 0.0030
+OCCUPATION_TYPE_FREQ,Kept,Correlation with Target: 0.0030
+LIVE_REGION_NOT_WORK_REGION,Kept,Correlation with Target: 0.0028
+NAME_EDUCATION_TYPE_Incomplete higher,Kept,Correlation with Target: 0.0028
+SK_ID_CURR,Kept,Correlation with Target: 0.0021
+FLAG_EMAIL,Kept,Correlation with Target: 0.0018
+AMT_REQ_CREDIT_BUREAU_DAY,Kept,Correlation with Target: 0.0017
+AMT_REQ_CREDIT_BUREAU_WEEK,Kept,Correlation with Target: 0.0013
+Age_Group_35-50,Kept,Correlation with Target: 0.0013
+ORGANIZATION_TYPE_FREQ,Kept,Correlation with Target: 0.0013
+FLAG_DOCUMENT_5,Kept,Correlation with Target: 0.0003

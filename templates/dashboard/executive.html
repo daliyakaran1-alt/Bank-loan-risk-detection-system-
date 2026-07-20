@@ -1,0 +1,58 @@
+{% extends "dashboard/layout.html" %}
+
+{% block page_title %}Executive Dashboard{% endblock %}
+
+{% block dashboard_content %}
+<div class="space-y-6 animate__animated animate__fadeIn">
+    <!-- Header -->
+    <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 relative overflow-hidden">
+        <div class="absolute top-0 right-0 -mt-10 -mr-10 text-brand-blue opacity-5">
+            <svg class="h-64 w-64" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 22h20L12 2z"/></svg>
+        </div>
+        <div class="relative z-10">
+            <h2 class="text-3xl font-bold text-slate-800 mb-2">BANK RISK ANALYTICS PLATFORM</h2>
+            <p class="text-slate-500">Real-time enterprise overview of loan portfolio and risk metrics.</p>
+        </div>
+    </div>
+
+    <!-- KPIs -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="kpi-container">
+        <!-- Fetched via JS -->
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    fetch('/api/dashboard/kpis')
+        .then(response => response.json())
+        .then(data => {
+            const container = document.getElementById('kpi-container');
+            const kpis = [
+                { title: 'Total Customers', value: data.total_customers, icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z', color: 'blue' },
+                { title: 'Total Loan Amount', value: data.total_loans, icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z', color: 'green' },
+                { title: 'Loans Approved', value: data.approved, icon: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z', color: 'emerald' },
+                { title: 'Loans Rejected', value: data.rejected, icon: 'M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z', color: 'rose' },
+                { title: 'Current Default Rate', value: data.default_rate, icon: 'M13 17h8m0 0V9m0 8l-8-8-4 4-6-6', color: 'yellow' },
+                { title: 'High Risk Customers', value: data.high_risk, icon: 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z', color: 'red' }
+            ];
+            
+            let html = '';
+            kpis.forEach(kpi => {
+                html += `
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between transform hover:-translate-y-1 transition-all duration-300">
+                    <div>
+                        <p class="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-1">${kpi.title}</p>
+                        <h3 class="text-3xl font-bold text-slate-800">${kpi.value}</h3>
+                    </div>
+                    <div class="h-14 w-14 rounded-full bg-${kpi.color}-50 flex items-center justify-center">
+                        <svg class="h-7 w-7 text-${kpi.color}-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${kpi.icon}" />
+                        </svg>
+                    </div>
+                </div>`;
+            });
+            container.innerHTML = html;
+        });
+});
+</script>
+{% endblock %}

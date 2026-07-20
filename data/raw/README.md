@@ -1,0 +1,2 @@
+# Raw Data
+This directory contains immutable raw data files.

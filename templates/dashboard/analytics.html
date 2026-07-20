@@ -1,0 +1,105 @@
+{% extends "dashboard/layout.html" %}
+
+{% block page_title %}Data Analytics{% endblock %}
+
+{% block dashboard_content %}
+<div class="space-y-8 animate__animated animate__fadeIn">
+    <!-- Header -->
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+        <h2 class="text-2xl font-bold text-slate-800">Portfolio Insights & Trends</h2>
+        <p class="text-slate-500 mt-1">Deep dive into customer demographics, income, and default correlations.</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Income Distribution -->
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+            <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center">
+                <span class="h-2 w-2 rounded-full bg-blue-500 mr-2"></span>
+                Income Distribution
+            </h3>
+            <div class="h-72">
+                <canvas id="incomeChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Credit Score vs Default -->
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+            <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center">
+                <span class="h-2 w-2 rounded-full bg-emerald-500 mr-2"></span>
+                Credit Score vs Default Rate
+            </h3>
+            <div class="h-72">
+                <canvas id="creditChart"></canvas>
+            </div>
+        </div>
+        
+        <!-- Age vs Default -->
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 lg:col-span-2">
+            <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center">
+                <span class="h-2 w-2 rounded-full bg-purple-500 mr-2"></span>
+                Age vs Default Rate
+            </h3>
+            <div class="h-72">
+                <canvas id="ageChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    fetch('/api/analytics')
+        .then(response => response.json())
+        .then(data => {
+            // Income Chart
+            new Chart(document.getElementById('incomeChart'), {
+                type: 'bar',
+                data: {
+                    labels: data.income_dist.labels,
+                    datasets: [{
+                        label: 'Number of Customers',
+                        data: data.income_dist.data,
+                        backgroundColor: '#3b82f6',
+                        borderRadius: 6
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+
+            // Credit Chart
+            new Chart(document.getElementById('creditChart'), {
+                type: 'bar',
+                data: {
+                    labels: data.credit_default.labels,
+                    datasets: [{
+                        label: 'Default Rate (%)',
+                        data: data.credit_default.data,
+                        backgroundColor: '#10b981',
+                        borderRadius: 6
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+
+            // Age Chart
+            new Chart(document.getElementById('ageChart'), {
+                type: 'line',
+                data: {
+                    labels: data.age_default.labels,
+                    datasets: [{
+                        label: 'Default Rate (%)',
+                        data: data.age_default.data,
+                        borderColor: '#8b5cf6',
+                        backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+        });
+});
+</script>
+{% endblock %}

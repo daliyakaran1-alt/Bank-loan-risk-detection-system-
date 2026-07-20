@@ -1,0 +1,172 @@
+{% extends 'dashboard/layout.html' %}
+
+{% block page_title %}Risk Engine & XAI{% endblock %}
+
+{% block dashboard_content %}
+<div class="space-y-8 animate__animated animate__fadeIn">
+    
+    <!-- Search Section -->
+    <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+        <h2 class="text-xl font-bold text-slate-900 mb-2">Real-Time Risk Assessment</h2>
+        <p class="text-slate-500 mb-6">Enter a Customer ID (SK_ID_CURR) from the dataset to query the historical record and compute the live ML Risk Score.</p>
+        
+        <form id="riskForm" class="flex max-w-2xl gap-4">
+            <div class="flex-grow">
+                <input type="number" id="customerId" placeholder="e.g. 100002" required
+                    class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-brand-blue transition-colors text-slate-800">
+            </div>
+            <button type="submit" id="assessBtn" class="bg-brand-blue text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-900 transition-colors shadow-sm flex items-center justify-center min-w-[140px]">
+                <span>Run Engine</span>
+                <svg id="loadingSpinner" class="animate-spin ml-2 h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+            </button>
+        </form>
+        <div id="errorMsg" class="mt-4 text-red-500 font-medium text-sm hidden"></div>
+    </div>
+
+    <!-- Results Section -->
+    <div id="resultsSection" class="hidden grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Customer Details -->
+        <div class="lg:col-span-1 bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+            <div class="flex items-center mb-6">
+                <div class="h-12 w-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 mr-4">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-slate-900">Customer Profile</h3>
+                    <p class="text-sm text-slate-500" id="resId">ID: 100002</p>
+                </div>
+            </div>
+            
+            <div class="space-y-4">
+                <div class="border-b border-slate-100 pb-3">
+                    <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider mb-1">Total Income</p>
+                    <p class="text-lg font-medium text-slate-800" id="resIncome">...</p>
+                </div>
+                <div class="border-b border-slate-100 pb-3">
+                    <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider mb-1">Credit Amount Requested</p>
+                    <p class="text-lg font-medium text-slate-800" id="resCredit">...</p>
+                </div>
+                <div class="border-b border-slate-100 pb-3">
+                    <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider mb-1">Loan Annuity</p>
+                    <p class="text-lg font-medium text-slate-800" id="resAnnuity">...</p>
+                </div>
+                <div class="pb-2">
+                    <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider mb-1">Education Type</p>
+                    <p class="text-sm font-medium text-slate-800" id="resEducation">...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ML Risk Output -->
+        <div class="lg:col-span-2 bg-white p-8 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-center items-center text-center">
+            <h3 class="text-lg font-bold text-slate-900 mb-2 w-full text-left">Machine Learning Decision Engine</h3>
+            <p class="text-sm text-slate-500 mb-8 w-full text-left">Probability of default calculated using XGBoost & Logistic Regression ensembles.</p>
+            
+            <div class="relative w-48 h-48 mb-6">
+                <!-- Simple SVG Gauge representation -->
+                <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="#f1f5f9" stroke-width="10"></circle>
+                    <circle id="gaugeFill" cx="50" cy="50" r="45" fill="none" stroke="#10b981" stroke-width="10" stroke-dasharray="283" stroke-dashoffset="283" class="transition-all duration-1000 ease-out"></circle>
+                </svg>
+                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                    <span id="resScore" class="text-4xl font-extrabold text-slate-900">0</span>
+                    <span class="text-sm text-slate-400 font-medium">Risk Score</span>
+                </div>
+            </div>
+            
+            <div id="resRecommendation" class="inline-block px-6 py-3 rounded-full text-lg font-bold bg-slate-100 text-slate-600">
+                Pending Assessment
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+document.getElementById('riskForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const customerId = document.getElementById('customerId').value;
+    const errorMsg = document.getElementById('errorMsg');
+    const resultsSection = document.getElementById('resultsSection');
+    const btnText = document.querySelector('#assessBtn span');
+    const spinner = document.getElementById('loadingSpinner');
+    
+    errorMsg.classList.add('hidden');
+    resultsSection.classList.add('hidden');
+    
+    // UI Loading state
+    btnText.innerText = "Analyzing...";
+    spinner.classList.remove('hidden');
+    
+    try {
+        const response = await fetch('/api/risk-assessment', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ sk_id_curr: customerId })
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+            // Populate Customer Data
+            document.getElementById('resId').innerText = `ID: ${data.customer.id}`;
+            document.getElementById('resIncome').innerText = `$${(data.customer.income || 0).toLocaleString()}`;
+            document.getElementById('resCredit').innerText = `$${(data.customer.credit || 0).toLocaleString()}`;
+            document.getElementById('resAnnuity').innerText = `$${(data.customer.annuity || 0).toLocaleString()}`;
+            document.getElementById('resEducation').innerText = data.customer.education;
+            
+            // Populate ML Output
+            const riskScore = data.assessment.risk_score;
+            document.getElementById('resScore').innerText = riskScore;
+            
+            // Update gauge and colors based on risk
+            const gaugeFill = document.getElementById('gaugeFill');
+            const offset = 283 - (283 * (riskScore / 100));
+            
+            // Force reflow for animation
+            gaugeFill.style.strokeDashoffset = 283;
+            setTimeout(() => {
+                gaugeFill.style.strokeDashoffset = offset;
+            }, 50);
+            
+            let colorClass = 'text-emerald-500';
+            let strokeColor = '#10b981'; // emerald-500
+            let bgClass = 'bg-emerald-50';
+            
+            if (riskScore > 60) {
+                colorClass = 'text-red-600';
+                strokeColor = '#dc2626'; // red-600
+                bgClass = 'bg-red-50';
+            } else if (riskScore > 30) {
+                colorClass = 'text-amber-500';
+                strokeColor = '#f59e0b'; // amber-500
+                bgClass = 'bg-amber-50';
+            }
+            
+            gaugeFill.setAttribute('stroke', strokeColor);
+            
+            const recEl = document.getElementById('resRecommendation');
+            recEl.innerText = data.assessment.recommendation;
+            recEl.className = `inline-block px-6 py-3 rounded-full text-lg font-bold ${bgClass} ${colorClass}`;
+            
+            // Show results
+            resultsSection.classList.remove('hidden');
+        } else {
+            errorMsg.innerText = data.error || "An unknown error occurred.";
+            errorMsg.classList.remove('hidden');
+        }
+    } catch (err) {
+        errorMsg.innerText = "Failed to connect to the prediction engine.";
+        errorMsg.classList.remove('hidden');
+    } finally {
+        // Reset loading state
+        btnText.innerText = "Run Engine";
+        spinner.classList.add('hidden');
+    }
+});
+</script>
+{% endblock %}
