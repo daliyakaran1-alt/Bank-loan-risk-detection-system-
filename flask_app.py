@@ -64,16 +64,28 @@ def register():
             
         db = SessionLocal()
         try:
-            # Check if user exists
+            # Check if user exists by username
             existing = crud.get_user_by_username(db, username)
             if existing:
                 flash('Username already exists.', 'error')
+                return render_template('register.html')
+            
+            # Check if email already exists
+            existing_email = crud.get_user_by_username_or_email(db, email)
+            if existing_email:
+                flash('An account with this email already exists.', 'error')
                 return render_template('register.html')
                 
             # Create user
             crud.create_user(db, username, email, password, "User", full_name)
             flash('Registration successful! Please log in.', 'success')
             return redirect(url_for('login'))
+        except ValueError as e:
+            flash(str(e), 'error')
+            return render_template('register.html')
+        except Exception as e:
+            flash('An error occurred during registration. Please try again.', 'error')
+            return render_template('register.html')
         finally:
             db.close()
             

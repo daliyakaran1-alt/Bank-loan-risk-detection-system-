@@ -12,7 +12,9 @@ class Config:
     # Database Configuration
     # Default to a local SQLite if POSTGRES_URL is not provided, to prevent hard crashes during local dev
     # However, production expects PostgreSQL.
-    DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./finsight_dev.db")
+    _BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    _DEFAULT_DB = f"sqlite:///{os.path.join(_BASE_DIR, 'finsight_dev.db')}"
+    DATABASE_URL = os.getenv("DATABASE_URL", _DEFAULT_DB)
     
     # Ensure psycopg2 is used for postgres URLs if specified as postgres:// instead of postgresql://
     if DATABASE_URL.startswith("postgres://"):
