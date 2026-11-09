@@ -1,6 +1,40 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<!-- JSON-LD Structured Data for Organization Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "FinSight",
+  "description": "Enterprise-grade banking risk analytics platform using machine learning to evaluate loan applicant default probability in real-time.",
+  "url": "{{ site_url }}",
+  "logo": "{{ site_url }}/assets/images/logo.png",
+  "foundingDate": "2026",
+  "sameAs": [],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer support",
+    "availableLanguage": "English"
+  },
+  "offers": {
+    "@type": "Offer",
+    "description": "AI-powered bank loan risk analytics platform with real-time risk scoring, customer segmentation, and explainable AI predictions."
+  }
+}
+</script>
+
+<!-- WebSite Schema for Sitelinks Search Box -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "FinSight",
+  "url": "{{ site_url }}",
+  "description": "Enterprise Bank Loan Risk Analytics Platform powered by Machine Learning"
+}
+</script>
+
 <!-- Hero Section -->
 <div class="relative bg-white overflow-hidden">
     <div class="max-w-7xl mx-auto">

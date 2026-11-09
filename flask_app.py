@@ -1,6 +1,7 @@
 import os
+from datetime import datetime
 from functools import wraps
-from flask import Flask, render_template, request, redirect, url_for, session, jsonify, flash
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify, flash, Response
 from src.db.database import SessionLocal
 from src.db import crud
 from src.services.auth_service import authenticate_user, init_db_and_auth
@@ -9,6 +10,15 @@ from src.services.interactive_risk_service import InteractiveRiskService
 
 app = Flask(__name__, static_folder='assets', static_url_path='/assets', template_folder='templates')
 app.secret_key = os.environ.get("FLASK_SECRET_KEY", "super-secret-finsight-key-2026")
+
+# SEO Configuration
+SITE_URL = os.environ.get("SITE_URL", "https://finsight.example.com")
+GOOGLE_VERIFICATION_CODE = os.environ.get("GOOGLE_SITE_VERIFICATION", "PASTE_YOUR_GOOGLE_VERIFICATION_CODE_HERE")
+
+@app.context_processor
+def inject_seo_vars():
+    """Inject SEO variables into all templates."""
+    return dict(site_url=SITE_URL)
 
 # Initialize DB on startup
 with app.app_context():
@@ -21,6 +31,49 @@ def login_required(f):
             return redirect(url_for('login', next=request.url))
         return f(*args, **kwargs)
     return decorated_function
+
+# --- SEO Routes ---
+
+@app.route('/robots.txt')
+def robots_txt():
+    """Serve robots.txt for search engine crawlers."""
+    content = f"""User-agent: *
+Allow: /
+Disallow: /dashboard
+Disallow: /api/
+Disallow: /logout
+
+Sitemap: {SITE_URL}/sitemap.xml
+"""
+    return Response(content.strip(), mimetype='text/plain')
+
+@app.route('/sitemap.xml')
+def sitemap_xml():
+    """Generate a dynamic sitemap.xml for search engines."""
+    now = datetime.utcnow().strftime('%Y-%m-%d')
+    pages = [
+        {'loc': '/', 'changefreq': 'weekly', 'priority': '1.0'},
+        {'loc': '/login', 'changefreq': 'monthly', 'priority': '0.6'},
+        {'loc': '/register', 'changefreq': 'monthly', 'priority': '0.6'},
+    ]
+
+    xml_parts = ['<?xml version="1.0" encoding="UTF-8"?>']
+    xml_parts.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
+    for page in pages:
+        xml_parts.append('  <url>')
+        xml_parts.append(f'    <loc>{SITE_URL}{page["loc"]}</loc>')
+        xml_parts.append(f'    <lastmod>{now}</lastmod>')
+        xml_parts.append(f'    <changefreq>{page["changefreq"]}</changefreq>')
+        xml_parts.append(f'    <priority>{page["priority"]}</priority>')
+        xml_parts.append('  </url>')
+    xml_parts.append('</urlset>')
+
+    return Response('\n'.join(xml_parts), mimetype='application/xml')
+
+@app.route('/google-verification')
+def google_verification():
+    """Google Search Console meta tag verification page."""
+    return f'google-site-verification: google{GOOGLE_VERIFICATION_CODE}.html'
 
 # --- Page Routes ---
 
